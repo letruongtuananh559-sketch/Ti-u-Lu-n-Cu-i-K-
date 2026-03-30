@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badminton Pro - Quản Lý Toàn Diện</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">🏸 BadmintonPro</div>
+        <nav>
+            <button onclick="openTab('home')">Trang Chủ</button>
+            <button onclick="openTab('booking')">Đặt Sân</button>
+            <button onclick="openTab('history')">Lịch Sử (<span id="cart-count">0</span>)</button>
+            <button onclick="openTab('admin')">Admin</button>
+        </nav>
+      <div class="auth-zone">
+    <span id="user-display">Khách</span>
+    <button id="login-btn" onclick="openAuthModal()">Đăng Nhập</button> 
+    <button id="logout-btn" onclick="logout()" style="display:none; background:#ff7675; border:none; color:white; padding:5px 10px; border-radius:5px; cursor:pointer">Thoát</button>
+</div>
+    </header>
+
+    <section id="home" class="tab-content hero-bg">
+        <div class="hero-content">
+            <h1>Hệ Thống Sân Cầu Lông Pro</h1>
+            <p>📍 123 Đường 3 Tháng 2, Quận 10, TP.HCM |⏰Thứ 2 - Chủ Nhật Mở cửa: 05:00 - 23:00</p>
+            <p>📞 Hotline: 090.123.4567</p>
+        
+            <button class="btn-main" style="width:250px" onclick="checkAuthBeforeBooking()">ĐẶT SÂN NGAY</button>
+        <div class="contact-section">
+    <p>Liên hệ sân cầu lông:</p>
+    <div class="social-icons">
+        <a href="https://www.facebook.com/share/1C1zXFwZAe/?mibextid=wwXIfr" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook" width="40" height="40">
+        </a>
+        <a href="https://zalo.me/0389580975" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo" width="40" height="40">
+        </a>
+    </div>
+</div>
+        </div>
+    </section>
+<div id="auth-modal" class="modal" style="display: none;">
+    <div class="modal-box">
+        <h2>Đăng Nhập</h2>
+        <div class="form-group">
+            <input type="text" id="auth-u" placeholder="Tên đăng nhập">
+            <input type="password" id="auth-p" placeholder="Mật khẩu">
+            <button class="btn-main" onclick="handleAuth()">VÀO HỆ THỐNG</button>
+        </div>
+        <p style="margin-top:15px">Chưa có tài khoản? 
+            <span onclick="goToRegister()" style="color:blue; cursor:pointer; font-weight:bold; text-decoration:underline">Đăng ký ngay</span>
+        </p>
+        <button onclick="closeAuthModal()" class="btn-close" style="margin-top:10px; cursor:pointer; border:none; background:none; color:red">Đóng [X]</button>
+    </div>
+</div>
+
+<section id="register-tab" class="tab-content container" style="display:none">
+    <div class="auth-card">
+        <h2>Tạo Tài Khoản Mới</h2>
+        <div class="form-group">
+            <input type="text" id="reg-u" placeholder="Tên đăng nhập mới">
+            <input type="password" id="reg-p" placeholder="Mật khẩu">
+            <input type="password" id="reg-re" placeholder="Nhập lại mật khẩu">
+            <button class="btn-main" onclick="handleRegisterDirect()">XÁC NHẬN ĐĂNG KÝ</button>
+        </div>
+        <p>Đã có tài khoản? <span onclick="openAuthModal()" style="color:blue; cursor:pointer">Quay lại Đăng nhập</span></p>
+    </div>
+</section>
+    </section>
+
+    <section id="booking" class="tab-content container" style="display:none">
+        <h2 class="title">🏸 Sân 1-5 (Thường) | Sân 6-10 (VIP)</h2>
+        <div id="court-grid" class="grid"></div>
+        <h2 class="title" style="margin-top:40px">🥤 Đồ ăn & Dịch Vụ</h2>
+        <div id="service-grid" class="grid"></div>
+    </section>
+
+    <section id="history" class="tab-content container" style="display:none">
+        <div class="flex-layout">
+            <div class="box">
+                <h3>🛒 Giỏ Hàng</h3>
+                <div id="cart-list"></div>
+                <h4>Tổng: <span id="cart-total">0</span>đ</h4>
+                <button class="btn-main" onclick="checkout()">THANH TOÁN</button>
+            </div>
+            <div class="box">
+                <h3>📋 Lịch Sử</h3>
+                <div id="history-list"></div>
+            </div>
+        </div>
+    </section>
+
+   <div id="admin" class="tab-content">
+    <h2 style="text-align: center; margin-bottom: 20px;">📊 BÁO CÁO DOANH THU</h2>
+
+    <div class="revenue-box">
+        <div class="revenue-card">
+            <p>Tổng doanh thu (Tất cả)</p>
+            <h3 id="revenue-val">0đ</h3>
+        </div>
+    </div>
+
+    <div class="monthly-report-container">
+        <h3>Chi tiết theo tháng</h3>
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th>Tháng</th>
+                    <th>Số đơn</th>
+                    <th>Doanh thu</th>
+                </tr>
+            </thead>
+            <tbody id="monthly-report-body">
+                </tbody>
+        </table>
+    </div>
+
+    <div id="admin-manage" style="margin-top: 30px;">
+        </div>
+</div>
+</div>
+    <script src="script.js"></script>
+</body>
+</html>

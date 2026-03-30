@@ -1,0 +1,151 @@
+:root { --main: #1dd1a1; --vip: #feca57; --busy: #ff6b6b; --fix: #54a0ff; --dark: #222f3e; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f5f6fa; }
+
+header { background: var(--dark); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; color: white; position: sticky; top:0; z-index: 100; }
+nav button { background: none; border: none; color: white; cursor: pointer; font-weight: bold; margin: 0 10px; }
+
+.hero-bg { height: 60vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1626225967045-9c76db7b620c?w=1200'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: white; text-align: center; }
+
+.container { padding: 30px 5%; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+
+/* Thẻ Sân theo trạng thái */
+.card { background: white; padding: 20px; border-radius: 12px; text-align: center; border-bottom: 6px solid #ccc; transition: 0.3s; }
+.status-available { border-color: var(--main); }
+.status-occupied { border-color: var(--busy); }
+.status-fix { border-color: var(--fix); }
+
+.btn-main { background: var(--main); color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; }
+.btn-main:disabled { background: #dfe6e9; color: #b2bec3; cursor: not-allowed; }
+header nav {
+    display: flex;
+    flex-wrap: wrap; /* Giúp các nút tự nhảy dòng nếu quá dài, không đè lên Logo */
+    gap: 10px;
+    justify-content: center;
+}
+
+header nav button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid transparent;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+header nav button:hover {
+    background: var(--main);
+    color: var(--dark);
+}
+/* Admin Grid */
+.admin-grid { display: grid; grid-template-columns: 1fr; gap: 10px; background: white; padding: 20px; border-radius: 12px; }
+.admin-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #eee; }
+.admin-btns button { padding: 8px 12px; margin-left: 5px; border: none; border-radius: 4px; cursor: pointer; color: white; font-size: 12px; }
+
+.btn-set-available { background: var(--main); }
+.btn-set-occupied { background: var(--busy); }
+.btn-set-fix { background: var(--fix); }
+
+.auth-card { max-width: 400px; margin: 50px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
+.form-group input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+.modal {
+    z-index: 100000 !important; /* Luôn trên cùng */
+}
+
+.auth-card {
+    position: relative;
+    z-index: 10; /* Đảm bảo nút bấm nằm trên lớp nền của section */
+}
+
+.btn-main:active {
+    transform: scale(0.95); /* Thêm hiệu ứng nhấn nút cho biết là đã bấm trúng */
+}
+/* Khung nền mờ bao phủ toàn màn hình */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Nền tối mờ cho nổi bật */
+    
+    /* HAI DÒNG QUAN TRỌNG NHẤT ĐỂ CĂN GIỮA: */
+    display: none;          /* Mặc định ẩn, JS sẽ chuyển thành 'flex' */
+    align-items: center;    /* Căn giữa theo chiều dọc (trên-dưới) */
+    justify-content: center; /* Căn giữa theo chiều ngang (trái-phải) */
+    
+    z-index: 9999;
+}
+
+/* Cái hộp trắng chứa form đăng nhập */
+.modal-box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;             /* Co giãn trên điện thoại */
+    max-width: 400px;       /* Rộng tối đa 400px cho giống trang đăng ký */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    text-align: center;     /* Căn chữ bên trong ra giữa luôn */
+}
+.revenue-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.revenue-card {
+    background: linear-gradient(135deg, #28a745, #218838); /* Màu xanh lá cây biểu tượng cho tiền bạc */
+    color: white;
+    padding: 20px 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 300px;
+}
+
+.revenue-card p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.revenue-card h3 {
+    margin: 10px 0 0 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+.monthly-report-container {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.report-table th, .report-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.report-table th {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.report-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.income-text {
+    color: #28a745;
+    font-weight: bold;
+}
